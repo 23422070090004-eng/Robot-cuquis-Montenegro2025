@@ -1,0 +1,16 @@
+Voltaje: 4.8–6
+Control: PWM
+Movimiento: 360° continuos
+Velocidad: 40–60 RPM
+Señal: 1 ms (gira), 1.5 ms (alto), 2 ms (gira al otro lado)
+
+
+Cómo funciona:
+El servo continuo no usa ángulos; interpreta el PWM como velocidad y dirección. Pulso corto → gira a un lado; pulso largo  al otro; pulso intermedio → se detiene.
+Cómo se usa para mover las llantas:
+El servomotor se conecta a un eje con dos llantas, y cuando gira, hace avanzar el carro completo.
+PWM hacia un lado  el eje gira y el carro avanza.
+PWM al otro lado  el eje gira al revés y el carro retrocede.
+PWM en 1.5 ms  el carro se detiene.
+
+El codigo quee utilizamos ffue el siguiente 
