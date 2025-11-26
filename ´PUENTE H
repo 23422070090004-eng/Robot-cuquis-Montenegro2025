@@ -1,0 +1,12 @@
+Funcionamiento de el Puente H
+
+El puente H es el componente encargado de controlar el sentido y la velocidad de los motores del vehículo.
+Recibe las señales de control enviadas por la Raspberry Pi y, mediante transistores o MOSFETs, permite que la corriente
+fluya hacia el motor en una dirección u otra. Gracias a esto, el motor puede girar hacia adelante o hacia atrás,
+e incluso frenar mediante inversión o corte de corriente.
+
+Cuando la Raspberry Pi detecta líneas, obstáculos o cambios en el camino, envía señales lógicas al puente H por medio de los pines GPIO.
+El puente H interpreta estas señales y ajusta el movimiento del motor aplicando voltaje y PWM, lo que permite acelerar, 
+desacelerar o girar con precisión. En pocas palabras, el puente H convierte las decisiones de la Raspberry Pi en movimiento físico del coche.
+
+El codigo utilizado para que utilizamos para que los componentes en conjunto funcionen fue el siguiente 
