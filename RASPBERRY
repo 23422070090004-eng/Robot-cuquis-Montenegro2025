@@ -1,0 +1,12 @@
+Funcionamiento de la Raspberry Pi 4
+
+Una Raspberry Pi actúa como el “cerebro” que procesa las imágenes capturadas por la cámara del vehículo.
+La cámara envía video en tiempo real a la Raspberry Pi, donde se utilizan algoritmos de visión artificial
+(como OpenCV o modelos de IA) para detectar objetos, líneas de carretera, señales de tránsito y obstáculos.
+
+La Raspberry Pi analiza cada cuadro del video, identifica qué hay frente al coche y toma decisiones básicas,
+como girar, frenar o acelerar. Luego envía estas órdenes a los motores o controladores del vehículo mediante pines GPIO,
+PWM o comunicación serial. También puede combinar datos de sensores como ultrasonido, GPS o giroscopios para mejorar la precisión.
+En resumen, la Raspberry Pi interpreta lo que “ve” el coche y controla sus movimientos para que pueda desplazarse de forma autónoma.
+
+El programa que utilizamos que trabaja en  conjunto con este componente para que funcione el carro es
