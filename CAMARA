@@ -1,0 +1,29 @@
+Cámara de Visión Artificial – Especificaciones y Funcionamiento
+Una cámara de visión artificial es un módulo digital encargado de capturar imágenes o video y
+enviarlos a un procesador, como una Raspberry Pi, para analizar el entorno del robot. Su funcionamiento 
+se basa en un sensor CMOS que convierte la luz en una imagen digital. El lente dirige la luz hacia el sensor,
+el cual transforma la información en pixeles y la envía a través del puerto CSI o USB hacia la Raspberry Pi
+para su procesamiento.
+
+El sistema de procesamiento utiliza herramientas como OpenCV o TensorFlow Lite para analizar
+cada imagen y permitir funciones como detección de objetos, seguimiento de líneas
+reconocimiento de colores, medición de distancias o navegación autónoma.
+
+Especificaciones típicas de la cámara:
+Sensor: CMOS (ejemplos: Sony IMX219 o IMX708)
+Resolución: entre 8 y 12 megapíxeles
+Video: hasta 1080p a 30–60 fps
+Campo de visión (FOV): entre 62° y 102° según el tipo de lente
+Conexión: puerto CSI (Camera Serial Interface) o USB
+
+Lente: enfoque fijo o ajustable; algunas versiones incluyen visión nocturna con LEDs infrarrojos
+
+Aplicaciones en robots autónomos:
+La cámara permite que el robot detecte obstáculos, siga trayectorias, identifique objetos o señales
+navegue por su entorno y tome decisiones basadas en la información visual.
+
+Uso básico:
+Conectar la cámara al puerto CSI o USB, instalar librerías como libcamera u OpenCV, capturar imágenes o video
+desde software en Python y procesarlas según la tarea que el robot deba realizar.
+
+el programa que utilizamos para programar el coche fue el siguiente  
