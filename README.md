@@ -20,6 +20,141 @@ Servin Araujo Luis Fernando
 Bailon Velazquez Sebastian Karol
 
 codigos de programacion usados para el carro vicion 
+# ================================
+#       IMPORTACIÓN DE LIBRERÍAS
+# ================================
+import cv2                      # Manejo de cámara y visión artificial
+import numpy as np             # Cálculos con matrices
+from gpiozero import Servo, PWMLED, DigitalInputDevice   # Control de GPIO
+from time import sleep          # Control de pausas
+
+# ===========================================
+#  AJUSTE FINO DEL CENTRO DEL SERVO (90° REAL)
+# ===========================================
+# Cambia este valor hasta que TU SERVO quede derecho
+AJUSTE_CENTRO = -0.15           # <-- AJÚSTALO si aún no queda recto
+
+# ===========================================
+#          PIN DE ACTIVACIÓN (GPIO24)
+# ===========================================
+activacion = DigitalInputDevice(24)   # Si recibe 5V el robot funciona
+
+# ===========================================
+#               MOTOR PWM (GPIO23)
+# ===========================================
+motor = PWMLED(23)              # Motor controlado con PWM (0 a 1)
+
+# ===========================================
+#            SERVO DE DIRECCIÓN (GPIO14)
+# ===========================================
+servo = Servo(14, min_pulse_width=0.5/1000, max_pulse_width=2.5/1000)
+
+# Poner el servo en posición recta (90° REAL)
+servo.value = AJUSTE_CENTRO
+sleep(1)    # Tiempo para estabilizar
+
+# ===========================================
+#              CONFIGURACIÓN CÁMARA
+# ===========================================
+cam = cv2.VideoCapture(0)       # Cámara USB /dev/video0
+cam.set(3, 640)                 # Resolución horizontal
+cam.set(4, 480)                 # Resolución vertical
+
+# Verificar si la cámara funciona
+ret, frame = cam.read()
+if not ret:
+    print("❌ No se pudo iniciar la cámara.")
+    cam.release()
+    exit()
+
+print("Robot de visión iniciado...")
+
+# ===========================================
+#               BUCLE PRINCIPAL
+# ===========================================
+while True:
+    ret, frame = cam.read()     # Captura frame de la cámara
+    if not ret:
+        break
+
+    # ---------------------------------------------------------
+    # 🚨 CONDICIÓN DE SEGURIDAD — ACTIVACIÓN POR GPIO24
+    # ---------------------------------------------------------
+    if not activacion.value:        # Si NO hay 5V en GPIO24
+        servo.value = AJUSTE_CENTRO # Servo recto
+        motor.value = 0             # Motor apagado
+
+        # Aviso en pantalla
+        cv2.putText(frame,
+                    "⛔ ESPERANDO ACTIVACION EN GPIO24",
+                    (10, 40),
+                    cv2.FONT_HERSHEY_SIMPLEX,
+                    0.7,
+                    (0, 255, 255),
+                    2)
+        cv2.imshow("Robot Vision Future Engineers", frame)
+
+        if cv2.waitKey(10) == 27:  # Tecla ESC
+            break
+
+        continue   # No ejecuta lo demás
+
+    # =============================
+    #  PROCESAMIENTO DE LA IMAGEN
+    # =============================
+    gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)     # A escala de grises
+    blur = cv2.GaussianBlur(gray, (5, 5), 0)           # Suavizado
+    _, thresh = cv2.threshold(blur, 80, 255, cv2.THRESH_BINARY_INV)
+
+    superficie = (np.sum(thresh == 255) / thresh.size) * 100
+    # Porcentaje de blanco = pared cercana
+
+    # ===========================================
+    #   LÓGICA DE MOVIMIENTO
+    # ===========================================
+    if superficie > 60:    # Pared a ~30 cm
+        # ---- GIRO CONTROLADO A LA DERECHA ----
+        servo.value = 1  # BETSABE (- DERECHA Y SIN EL - IZQUIERDA)
+        motor.value = 0.22                 # El motor sigue avanzando
+
+        sleep(4)   # <<<----- PAUSA para completar el giro
+                      #        (ajusta entre 0.3 y 0.6)
+
+        estado = "🚧 PARED CERCA: Girando derecha + Motor lento"
+        color = (0, 0, 255)
+
+    else:
+        # ---- AVANCE RECTO ----
+        servo.value = AJUSTE_CENTRO  # Servo recto real
+        motor.value = 0.22            # Velocidad normal
+
+        estado = "➡️ AVANZANDO RECTO"
+        color = (0, 255, 0)
+
+    # ===========================================
+    #       MOSTRAR INFO EN PANTALLA
+    # ===========================================
+    cv2.putText(frame,
+                estado,
+                (10, 40),
+                cv2.FONT_HERSHEY_SIMPLEX,
+                0.7,
+                color,
+                2)
+
+    cv2.imshow("Robot Vision Future Engineers", frame)
+
+    # Salida con ESC
+    if cv2.waitKey(10) == 27:
+        break
+
+# ===========================================
+#           FINALIZACIÓN SEGURA
+# ===========================================
+cam.release()
+motor.value = 0
+servo.value = AJUSTE_CENTRO
+cv2.destroyAllWindows()
 
 url
 
