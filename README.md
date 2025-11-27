@@ -156,7 +156,8 @@ motor.value = 0
 servo.value = AJUSTE_CENTRO
 cv2.destroyAllWindows()
 
-url
+https://youtube.com/shorts/4SXVYwwBYCs?si=Pe-N-R9RuyPNeN6f
+ este enlace lleva un video en youtube shorts donde se ve parte de la pruebas realizadas en el plantel 
 
 La impresora que utilizamos para la imprecion de las piezas fue una impresora 3D de modelo Ende -3 V3 SE
 esta fue la inica impresora que utilizamos sin cortadora laser ni mas maquinas extras.
