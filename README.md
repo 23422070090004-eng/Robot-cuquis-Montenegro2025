@@ -20,13 +20,14 @@ Servin Araujo Luis Fernando
 Bailon Velazquez Sebastian Karol
 
 codigos de programacion usados para el carro vicion 
+
 url
 
 La impresora que utilizamos para la imprecion de las piezas fue una impresora 3D de modelo Ende -3 V3 SE
 esta fue la inica impresora que utilizamos sin cortadora laser ni mas maquinas extras.
 
-
-
+![impresora 3D 2](https://github.com/user-attachments/assets/9bb228fb-da65-4a7a-baf8-50adcfb136e2)
+![impresora 3D](https://github.com/user-attachments/assets/831f1ca2-4399-48fc-bea1-47d6231363bb)
 
 
 
